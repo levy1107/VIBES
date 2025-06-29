@@ -45,5 +45,29 @@ Para la autenticación de las solicitudes a nuestra aplicación web (no para la 
 
 Para retomar el trabajo en este proyecto después de un reinicio, simplemente inicia tu instancia de Gemini CLI en el directorio del proyecto y envía el mensaje: `analiza el readme.md`.
 
+## Avances Recientes y Configuración de GitHub:
+
+Hemos avanzado en la configuración inicial del proyecto, incluyendo la mejora de seguridad y la preparación para la integración con GitHub.
+
+**Vinculación a GitHub (Rama `main`):**
+
+1.  **Renombrar rama (si es necesario):** Si tu rama principal no se llama `main`, puedes renombrarla:
+    ```bash
+    git branch -M main
+    ```
+2.  **Añadir el repositorio remoto:**
+    ```bash
+    git remote add origin https://github.com/levy1107/VIBES.git
+    ```
+3.  **Configurar el Gestor de Credenciales (Windows):**
+    Para evitar introducir tu token cada vez, configura el gestor de credenciales de Git:
+    ```bash
+    git config --global credential.helper manager
+    ```
+4.  **Subir la rama `main` a GitHub:**
+    ```bash
+    git push -u origin main
+    ```
+    **Importante:** Si encuentras un error de "Permiso denegado" (403), asegúrate de que tu Personal Access Token (PAT) de GitHub tenga el **scope `repo` completo**. Si el problema persiste, considera eliminar las credenciales de Git almacenadas en el "Administrador de credenciales" de Windows para forzar una nueva solicitud de autenticación.
+
 ¡Estoy listo para continuar cuando tú lo estés!
-bien terminaste de leer responde con " ok analice el proyecto ene sto quedamos y debemos hacer **explica segunb el readme lo que te dio es informacion pon eso aca*  segun lo que aprendiste ayuda al usuario humano a entender donde quedo el proyecto, revisa el backlog.md que alli esta el checklist"

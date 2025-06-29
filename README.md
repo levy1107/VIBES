@@ -23,9 +23,20 @@ Para trabajar eficientemente en este proyecto, seguiremos el siguiente flujo de 
 
 Actualmente, este proyecto se encuentra en una **fase inicial de configuración y mejora de seguridad**. Hemos completado la configuración básica de Flask y la comunicación inicial a través de la interfaz web. La mejora más reciente ha sido la implementación de un sistema de autenticación más robusto para la API de nuestra aplicación web, utilizando hashing para la `API_KEY`.
 
-**No hay ramas de desarrollo (frontend/backend) creadas aún.** Todo el trabajo se está realizando en la rama principal.
+Hemos vinculado exitosamente el proyecto a un repositorio de GitHub y hemos creado las ramas de desarrollo `back` (para el backend) y `front` (para el frontend). La rama principal (`main`) se utiliza para la integración y el control general del proyecto.
 
 El **backlog** se encuentra en `backlog.md` y es nuestro sistema de gestión de tareas. Puedes consultarlo para ver las tareas pendientes y el progreso.
+
+## Flujo de Trabajo con Ramas de Trabajadores:
+
+Para un desarrollo más organizado, utilizaremos las ramas `back` y `front` como "trabajadores" dedicados:
+
+1.  **Asignación de Tareas:** Cuando se me asigne una tarea, la clasificaré como de backend o frontend.
+2.  **Desarrollo en Ramas Específicas:**
+    *   Las tareas de **backend** se desarrollarán en la rama `back`.
+    *   Las tareas de **frontend** se desarrollarán en la rama `front`.
+3.  **Comunicación de Progreso:** Una vez que una tarea esté completa en su respectiva rama, realizaré un commit y te notificaré.
+4.  **Integración:** El usuario humano (tú) será responsable de revisar los cambios en las ramas `back` o `front` y de integrarlos en la rama `main` cuando sea apropiado (por ejemplo, mediante `merge` o `pull request`).
 
 ## Configuración de la API Key (para la aplicación Flask):
 

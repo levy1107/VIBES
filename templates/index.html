@@ -63,15 +63,119 @@
     <h2>New Instructions for Gemini</h2>
     <div class="instruction-form">
         <form action="/submit" method="post">
-            <label for="instruction">Instruction:</label><br>
+            <div style="display: flex; align-items: center; margin-bottom: 0.5rem;">
+                <label for="instruction">Instruction:</label>
+                <button type="button" id="record-button" style="margin-left: 10px; padding: 5px 10px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Start Recording
+                </button>
+                <span id="status" style="margin-left: 10px; color: #666;"></span>
+            </div>
             <textarea id="instruction" name="instruction" rows="10" required></textarea><br><br>
             
-            <label for="password">Password:</label><br>
-            <input type="password" id="password" name="password" required><br><br>
+            <label for="api_key_input">API Key:</label><br>
+            <input type="password" id="api_key_input" name="api_key_input" required><br><br>
 
             <button type="submit">Send to Gemini</button>
         </form>
     </div>
+
+    <script>
+        
+
+        const api_key_input = document.getElementById('api_key_input').value;
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-API-KEY': api_key_input
+                },
+                body: JSON.stringify({
+                    instruction: instruction
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Network response was not ok.');
+            })
+            .then(data => {
+                console.log('Success:', data);
+                alert('Instruction sent successfully!');
+                window.location.reload(); // Reload the page to see the updated backlog
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('An error occurred. Please check the console.');
+            });
+        });
+
+        const recordButton = document.getElementById('record-button');
+        const statusSpan = document.getElementById('status');
+        const instructionTextarea = document.getElementById('instruction');
+
+        // Check if the browser supports the Web Speech API
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            
+            // Set properties for the recognition
+            recognition.continuous = true; // Keep listening even after a pause
+            recognition.interimResults = true; // Get results as they are being recognized
+            recognition.lang = 'es-ES'; // Set language to Spanish (Spain)
+
+            let isRecording = false;
+
+            recognition.onstart = () => {
+                statusSpan.textContent = 'Listening...';
+                recordButton.textContent = 'Stop Recording';
+                recordButton.style.backgroundColor = '#dc3545'; // Red color for stop
+            };
+
+            recognition.onend = () => {
+                statusSpan.textContent = 'Click to start again.';
+                recordButton.textContent = 'Start Recording';
+                recordButton.style.backgroundColor = '#28a745'; // Green color for start
+                isRecording = false;
+            };
+
+            recognition.onerror = (event) => {
+                statusSpan.textContent = 'Error: ' + event.error;
+                console.error('Speech recognition error', event);
+            };
+
+            recognition.onresult = (event) => {
+                let final_transcript = '';
+                let interim_transcript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        final_transcript += event.results[i][0].transcript;
+                    } else {
+                        interim_transcript += event.results[i][0].transcript;
+                    }
+                }
+                // Append the final transcript to the textarea
+                instructionTextarea.value += final_transcript;
+            };
+
+            recordButton.addEventListener('click', () => {
+                if (isRecording) {
+                    recognition.stop();
+                } else {
+                    // Clear previous content if you want to start fresh
+                    // instructionTextarea.value = ''; 
+                    recognition.start();
+                }
+                isRecording = !isRecording;
+            });
+
+        } else {
+            recordButton.disabled = true;
+            statusSpan.textContent = "Sorry, your browser doesn't support Speech Recognition.";
+        }
+    </script>
 
 </body>
 </html>

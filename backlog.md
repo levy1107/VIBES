@@ -13,7 +13,8 @@ Para cada parte del backlog, se deben definir tareas con niveles de complejidad 
 - [x] Implementación de la comunicación inicial (Humano -> Gemini) a través de la interfaz web.
 - [x] Creación del `backlog.md` inicial.
 - [x] **Mejora:** Implementar un sistema de autenticación más robusto que el actual.
-- [ ] **Configuración:** Vincular el proyecto a un repositorio de GitHub (para nuevos proyectos).
+- [x] **Configuración:** Vincular el proyecto a un repositorio de GitHub.
+- [x] **Configuración:** Crear ramas de trabajadores (`back` y `front`) para desarrollo de backend y frontend.
 
 ## Fase 2: Desarrollo del Sistema de Tareas
 
